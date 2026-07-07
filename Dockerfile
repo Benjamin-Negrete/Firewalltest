@@ -14,7 +14,7 @@ FROM eclipse-temurin:21-jre
 
 WORKDIR /app
 
-COPY --from=builder "/app/proyecto firewall/api-gateway/target/"api-gateway*.jar app.jar
+COPY --from=builder "/app/proyecto firewall/api-gateway/target/api-gateway"*.jar app.jar
 
 EXPOSE 8080
 
