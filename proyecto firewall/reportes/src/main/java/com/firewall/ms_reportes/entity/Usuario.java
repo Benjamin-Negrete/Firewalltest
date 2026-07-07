@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "firewall_reporte_usuario")
+@Table(name = "reporte_usuario")
 @Data // Esto crea automáticamente Getters y Setters gracias a Lombok
 public class Usuario {
 
@@ -12,7 +12,7 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 20, unique = true)
+    @Column(nullable = false, length = 20)
     private String rut;
 
     @Column(name = "direccion_ip", nullable = false, length = 45)

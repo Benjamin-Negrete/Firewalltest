@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "firewall_reporte")
+@Table(name = "Reporte")
 @Data
 public class Reporte {
 
@@ -14,15 +14,14 @@ public class Reporte {
     private Long id;
 
     @ManyToOne // Muchos reportes pueden ser de un mismo RUT/IP en una emergencia
-    @JoinColumn(name = "reporte_usuario_id", nullable = false)
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
     private String descripcion;
 
-    @Column(name = "fecha_hora", nullable = false)
+    @Column(name = "fecha_hora")
     private LocalDateTime fechaHora = LocalDateTime.now();
 
-    @Column(nullable = false)
     private String estado = "Enviado";
 
     // ... (código que ya tenías: id, usuario, descripcion, etc.) ...
