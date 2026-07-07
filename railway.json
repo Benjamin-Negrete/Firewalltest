@@ -1,6 +1,5 @@
 {
   "build": {
-    "builder": "dockerfile",
-    "dockerfile": "./proyecto firewall/api-gateway/Dockerfile"
+    "builder": "dockerfile"
   }
 }
