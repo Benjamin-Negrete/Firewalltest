@@ -47,7 +47,16 @@ export class ReportesViewModel {
         },
         error: (err) => {
           this.loading.set(false);
-          this.error.set(err.error?.message ?? 'No se pudo enviar el reporte');
+          const body = err.error;
+          if (body && typeof body === 'object' && 'message' in body && typeof (body as { message: unknown }).message === 'string') {
+            this.error.set((body as { message: string }).message);
+            return;
+          }
+          if (typeof body === 'string' && !body.trimStart().startsWith('<')) {
+            this.error.set(body);
+            return;
+          }
+          this.error.set('No se pudo enviar el reporte');
         },
       }),
     );
