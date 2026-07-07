@@ -12,6 +12,15 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 @SpringBootApplication
 public class ApiGatewayApplication {
 
+    private static final String USUARIOS_SERVICE_URL =
+        System.getenv().getOrDefault("USUARIOS_SERVICE_URL", "http://localhost:8084");
+    private static final String REPORTES_SERVICE_URL =
+        System.getenv().getOrDefault("REPORTES_SERVICE_URL", "http://localhost:8081");
+    private static final String GEO_SERVICE_URL =
+        System.getenv().getOrDefault("GEO_SERVICE_URL", "http://localhost:8083");
+    private static final String ALERTAS_SERVICE_URL =
+        System.getenv().getOrDefault("ALERTAS_SERVICE_URL", "http://localhost:8082");
+
 	public static void main(String[] args) {
 		SpringApplication.run(ApiGatewayApplication.class, args);
 	}
@@ -41,22 +50,23 @@ public class ApiGatewayApplication {
 		return builder.routes()
 			.route("ms_reportes_api_exact", r -> r.path("/api/reports")
 				.filters(f -> f.rewritePath("/api/reports", "/api/reportes"))
-				.uri("http://ms-reportes:8081"))
+				.uri(REPORTES_SERVICE_URL))
 			.route("ms_geolocation_api_exact", r -> r.path("/api/geolocation")
 				.filters(f -> f.rewritePath("/api/geolocation", "/api/monitoreo"))
-				.uri("http://ms-geolocalizacion:8083"))
+				.uri(GEO_SERVICE_URL))
 			.route("ms_usuarios_api", r -> r.path("/api/usuarios/**")
-				.uri("http://ms-usuarios:8084"))
+				.uri(USUARIOS_SERVICE_URL))
 			.route("ms_usuarios_auth", r -> r.path("/auth/**")
-				.uri("http://ms-usuarios:8084"))
+				.uri(USUARIOS_SERVICE_URL))
 			.route("ms_reportes_api", r -> r.path("/api/reports/**")
 				.filters(f -> f.rewritePath("^/api/reports/(?<segment>.*)", "/api/reportes/${segment}"))
-				.uri("http://ms-reportes:8081"))
+				.uri(REPORTES_SERVICE_URL))
 			.route("ms_geolocation_api", r -> r.path("/api/geolocation/**")
 				.filters(f -> f.rewritePath("^/api/geolocation/(?<segment>.*)", "/api/monitoreo/${segment}"))
-				.uri("http://ms-geolocalizacion:8083"))
+				.uri(GEO_SERVICE_URL))
 			.route("firewall_alerta_api", r -> r.path("/alerts/**")
-				.uri("http://ms-alertas:8082"))
+				.uri(ALERTAS_SERVICE_URL))
 			.build();
 	}
 }
+
