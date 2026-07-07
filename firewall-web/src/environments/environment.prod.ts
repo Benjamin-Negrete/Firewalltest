@@ -1,10 +1,10 @@
 export const environment = {
   production: true,
-  apiRoot: 'http://localhost:8080',
+  apiRoot: 'https://firewalltest-production.up.railway.app',
   useDirectServices: false,
   direct: {
-    usuarios: 'http://localhost:8084',
-    reportes: 'http://localhost:8081',
-    geo: 'http://localhost:8083',
+    usuarios: 'https://firewalltest-production.up.railway.app',
+    reportes: 'https://firewalltest-production.up.railway.app',
+    geo: 'https://firewalltest-production.up.railway.app',
   },
 };
