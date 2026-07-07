@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 import java.util.Map;
 
-@CrossOrigin(origins = "*", allowedHeaders = {"*", "X-Forwarded-Host", "x-forwarded-host"})
 @RestController
 @RequestMapping("/auth")
 public class AuthController {

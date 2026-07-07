@@ -18,7 +18,6 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "*", allowedHeaders = {"*", "X-Forwarded-Host", "x-forwarded-host"})
 @RestController
 @RequestMapping("/api/usuarios")
 public class UsuarioController {
