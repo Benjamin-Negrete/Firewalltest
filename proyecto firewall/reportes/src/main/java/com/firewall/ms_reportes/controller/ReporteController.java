@@ -13,16 +13,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import org.springframework.dao.DataAccessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/reportes")
@@ -132,25 +127,5 @@ public class ReporteController {
 		@Parameter(description = "ID del reporte") @PathVariable Long id) {
 		reporteService.eliminarReporte(id);
 		return ResponseEntity.noContent().build();
-	}
-
-	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<Map<String, String>> handleValidationErrors(MethodArgumentNotValidException ex) {
-		String message = ex.getBindingResult().getFieldErrors().stream()
-			.map(fieldError -> fieldError.getDefaultMessage())
-			.collect(Collectors.joining("; "));
-		return ResponseEntity.badRequest().body(Collections.singletonMap("message", message));
-	}
-
-	@ExceptionHandler(DataAccessException.class)
-	public ResponseEntity<Map<String, String>> handleDatabaseError(DataAccessException ex) {
-		return ResponseEntity.internalServerError()
-			.body(Collections.singletonMap("message", "No se pudo guardar el reporte en la base de datos"));
-	}
-
-	@ExceptionHandler(RuntimeException.class)
-	public ResponseEntity<Map<String, String>> handleRuntimeError(RuntimeException ex) {
-		return ResponseEntity.internalServerError()
-			.body(Collections.singletonMap("message", ex.getMessage()));
 	}
 }
