@@ -14,10 +14,14 @@ FROM eclipse-temurin:21-jre
 
 WORKDIR /app
 
-# Copy the JAR file
-RUN ls -la /app/proyecto\ firewall/api-gateway/target/
-COPY --from=builder /app/proyecto\ firewall/api-gateway/target/api-gateway-*.jar ./app.jar
+# Copy the build script and JAR finder
+COPY copy-jar.sh .
+RUN chmod +x copy-jar.sh
+
+# Copy from builder and find JAR
+COPY --from=builder /app /app-src
+RUN bash -c 'find /app-src -name "api-gateway-*.jar" -exec cp {} /app.jar \;'
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "/app.jar"]
