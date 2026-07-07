@@ -75,7 +75,7 @@ export class AuthViewModel {
       },
       error: (err) => {
         this.loading.set(false);
-        this.error.set(err.error?.message ?? 'Error al registrar');
+        this.error.set(this.resolveHttpError(err, 'Error al registrar'));
       },
     });
   }

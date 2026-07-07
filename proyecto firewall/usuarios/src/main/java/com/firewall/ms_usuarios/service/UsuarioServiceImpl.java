@@ -33,13 +33,17 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public Usuario register(RegisterRequestDTO request) {
         String rut = request.getRut().trim();
+        String email = request.getEmail().toLowerCase().trim();
         if (usuarioRepository.findByRut(rut).isPresent()) {
             throw new IllegalArgumentException("Ya existe un usuario registrado con ese RUT");
+        }
+        if (usuarioRepository.existsByEmailIgnoreCase(email)) {
+            throw new IllegalArgumentException("Ya existe un usuario registrado con ese email");
         }
 
         Usuario usuario = new Usuario();
         usuario.setRut(rut);
-        usuario.setEmail(request.getEmail().toLowerCase().trim());
+        usuario.setEmail(email);
         usuario.setNombre(request.getNombre());
         usuario.setPasswordHash(passwordEncoder.encode(request.getPassword()));
         return usuarioRepository.save(usuario);
