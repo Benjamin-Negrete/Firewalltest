@@ -1,0 +1,98 @@
+<div class="bg-white rounded-xl shadow-md max-w-xl mx-auto overflow-hidden">
+  <div class="p-5 border-b border-slate-100">
+    <div class="flex items-start gap-3">
+      <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-sky-50 text-sky-600">
+        <mat-icon>my_location</mat-icon>
+      </span>
+      <div>
+        <h2 class="font-display text-lg font-bold text-slate-900">Reporte ciudadano</h2>
+        <p class="text-sm text-slate-600 mt-0.5">
+          Puede usar GPS del navegador o una ubicacion de ejemplo para pruebas.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="p-5 space-y-5">
+    <div class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 flex flex-col sm:flex-row sm:items-center gap-3">
+      <div class="flex-1 min-w-0">
+        <p class="text-sm text-slate-800 font-medium">Ubicación del equipo</p>
+        <p class="text-xs text-slate-500 mt-0.5">
+          Si el GPS no responde, use la ubicacion de ejemplo.
+        </p>
+        @if (geo.status() === 'pending') {
+          <div class="flex items-center gap-2 mt-2 text-orange-600 text-sm">
+            <mat-spinner diameter="18" />
+            Obteniendo GPS…
+          </div>
+        }
+        @if (geo.status() === 'ready' && geo.lastFix(); as fix) {
+          <div class="mt-2 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs text-emerald-800">
+            <mat-icon class="!text-base !w-4 !h-4">gps_fixed</mat-icon>
+            Precisión ~{{ fix.accuracyM | number: '1.0-0' }} m
+          </div>
+        }
+        @if (geo.status() === 'error' && geo.error()) {
+          <p class="text-xs text-red-600 mt-2">{{ geo.error() }}</p>
+        }
+      </div>
+      <div class="flex shrink-0 flex-col gap-2 sm:w-auto">
+        <button
+          type="button"
+          class="fw-btn-secondary text-sm"
+          (click)="solicitarUbicacion(true)"
+          [disabled]="geo.status() === 'pending'"
+        >
+          Actualizar GPS
+        </button>
+        <button type="button" class="fw-btn-secondary text-sm" (click)="aplicarUbicacionDemo()">
+          Usar ejemplo
+        </button>
+      </div>
+    </div>
+
+    <div>
+      <label class="fw-label" for="desc">Descripción del incidente</label>
+      <textarea id="desc" rows="3" class="fw-input resize-y min-h-[88px]" [(ngModel)]="descripcion" name="desc" required></textarea>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label class="fw-label" for="lat">Latitud</label>
+        <input id="lat" class="fw-input" [(ngModel)]="latitud" name="lat" placeholder="GPS o manual" />
+      </div>
+      <div>
+        <label class="fw-label" for="lng">Longitud</label>
+        <input id="lng" class="fw-input" [(ngModel)]="longitud" name="lng" placeholder="GPS o manual" />
+      </div>
+    </div>
+
+    <div>
+      <label class="fw-label" for="ref">Referencia (opcional)</label>
+      <input id="ref" class="fw-input" [(ngModel)]="referencia" name="ref" />
+    </div>
+
+    <div class="rounded-xl border border-dashed border-slate-300 bg-slate-50 px-4 py-6 text-center">
+      <input #fileInp type="file" accept="image/*" class="hidden" (change)="onFile($event)" />
+      <button type="button" class="fw-btn-secondary" (click)="fileInp.click()">
+        Adjuntar imagen (simulado)
+      </button>
+      @if (archivoNombre) {
+        <p class="mt-2 text-xs text-emerald-700 truncate">{{ archivoNombre }}</p>
+      }
+    </div>
+
+    <button
+      type="button"
+      class="fw-btn-primary w-full !py-3"
+      (click)="enviar()"
+      [disabled]="vm.loading() || !descripcion.trim() || geo.status() === 'pending'"
+    >
+      @if (vm.loading()) {
+        Enviando…
+      } @else {
+        Enviar reporte con esta ubicación
+      }
+    </button>
+  </div>
+</div>

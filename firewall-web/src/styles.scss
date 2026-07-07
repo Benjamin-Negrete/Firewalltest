@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --fw-brand: #ea580c;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  @apply bg-slate-50 text-slate-900 font-sans antialiased;
+}
+
+@layer components {
+  .fw-label {
+    @apply block text-sm font-medium text-slate-700 mb-1.5;
+  }
+
+  .fw-input {
+    @apply w-full px-4 py-2 border border-slate-300 rounded-lg bg-white text-slate-900 text-sm
+      placeholder:text-slate-400
+      focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors;
+  }
+
+  .fw-btn-primary {
+    @apply inline-flex items-center justify-center px-4 py-2.5 rounded-lg bg-orange-600 text-white text-sm font-semibold
+      hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2
+      disabled:opacity-60 disabled:pointer-events-none transition-colors;
+  }
+
+  .fw-btn-secondary {
+    @apply inline-flex items-center justify-center px-4 py-2.5 rounded-lg border border-slate-300 bg-white text-slate-700 text-sm font-medium
+      hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-300 focus:ring-offset-2
+      disabled:opacity-60 transition-colors;
+  }
+
+  .fw-card-interactive {
+    @apply block bg-white rounded-xl shadow-md p-5 border border-slate-100 hover:shadow-lg hover:border-orange-200 transition-all;
+  }
+}
+
+/* Map: pulsing pins */
+.fw-map-pin-pulse {
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 30% 30%, #fef08a, #f97316 40%, #7f1d1d);
+  box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.7);
+  animation: fw-pin-pulse 1.8s ease-out infinite;
+}
+
+@keyframes fw-pin-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 18px rgba(249, 115, 22, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(249, 115, 22, 0);
+  }
+}
+
+.leaflet-container {
+  font-family: inherit;
+  background: #f4f4f5;
+}
+
+.leaflet-tile-pane {
+  filter: none;
+}
+
+::ng-deep .fw-leaflet-pin {
+  background: transparent !important;
+  border: none !important;
+}
+
+.mat-toolbar {
+  box-shadow: none !important;
+}
+
+.mat-toolbar::after {
+  display: none !important;
+}

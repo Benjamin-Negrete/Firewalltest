@@ -1,0 +1,14 @@
+.fw-map-host {
+  height: min(70vh, 640px);
+  min-height: 320px;
+  background: #f4f4f5;
+}
+
+:host ::ng-deep .leaflet-container {
+  background: #f4f4f5;
+}
+
+::ng-deep .fw-leaflet-pin {
+  background: transparent !important;
+  border: none !important;
+}

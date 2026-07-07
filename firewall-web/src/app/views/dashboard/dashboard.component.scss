@@ -1,0 +1,82 @@
+.fw-sidebar {
+  ::ng-deep .mat-drawer-inner-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.fw-nav-link {
+  @apply flex items-center gap-3 rounded-xl px-3 py-2.5 text-slate-700 transition-colors hover:bg-slate-50;
+}
+
+.fw-nav-link-active {
+  @apply bg-orange-50 text-orange-800 ring-1 ring-orange-100;
+
+  .fw-nav-icon {
+    @apply bg-orange-600 text-white;
+  }
+
+  .fw-nav-title {
+    @apply text-orange-900 font-semibold;
+  }
+}
+
+.fw-nav-icon {
+  @apply flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-600;
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.fw-nav-text {
+  @apply flex min-w-0 flex-col leading-tight;
+}
+
+.fw-nav-title {
+  @apply text-sm font-medium text-slate-800;
+}
+
+.fw-nav-desc {
+  @apply text-[11px] text-slate-500 mt-0.5 truncate;
+}
+
+.fw-nav-cta {
+  @apply flex w-full items-center justify-center gap-2 rounded-xl bg-orange-600 px-4 py-3 text-sm font-semibold text-white shadow-md hover:bg-orange-700 transition-colors;
+
+  mat-icon {
+    font-size: 1.25rem;
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+
+.fw-btn-logout {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-red-600 hover:border-red-100 transition-colors;
+}
+
+mat-sidenav-content {
+  min-height: 100vh;
+}
+
+::ng-deep mat-toolbar::after {
+  display: none !important;
+}
+
+@media (max-width: 1023px) {
+  .fw-sidebar {
+    width: min(88vw, 320px) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .fw-nav-link {
+    @apply gap-2.5 px-2.5 py-2.5;
+  }
+
+  .fw-nav-desc {
+    @apply hidden;
+  }
+}
