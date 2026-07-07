@@ -13,13 +13,17 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 public class ApiGatewayApplication {
 
     private static final String USUARIOS_SERVICE_URL =
-        System.getenv().getOrDefault("USUARIOS_SERVICE_URL", "http://localhost:8084");
+        serviceUrl("USUARIOS_SERVICE_URL", "http://127.0.0.1:8084");
     private static final String REPORTES_SERVICE_URL =
-        System.getenv().getOrDefault("REPORTES_SERVICE_URL", "http://localhost:8081");
+        serviceUrl("REPORTES_SERVICE_URL", "http://127.0.0.1:8081");
     private static final String GEO_SERVICE_URL =
-        System.getenv().getOrDefault("GEO_SERVICE_URL", "http://localhost:8083");
+        serviceUrl("GEO_SERVICE_URL", "http://127.0.0.1:8083");
     private static final String ALERTAS_SERVICE_URL =
-        System.getenv().getOrDefault("ALERTAS_SERVICE_URL", "http://localhost:8082");
+        serviceUrl("ALERTAS_SERVICE_URL", "http://127.0.0.1:8082");
+
+	private static String serviceUrl(String name, String fallback) {
+		return System.getenv().getOrDefault(name, fallback).replace("://localhost:", "://127.0.0.1:");
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(ApiGatewayApplication.class, args);
