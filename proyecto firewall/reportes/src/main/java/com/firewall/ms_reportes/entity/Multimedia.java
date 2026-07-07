@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "Multimedia")
+@Table(name = "firewall_multimedia")
 @Data
 public class Multimedia {
 
