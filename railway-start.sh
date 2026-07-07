@@ -9,13 +9,16 @@ export REPORTS_SERVICE_URL="${REPORTS_SERVICE_URL:-http://localhost:8081/api/rep
 export GEO_SERVICE_URL="${GEO_SERVICE_URL:-http://localhost:8083}"
 export ALERTAS_SERVICE_URL="${ALERTAS_SERVICE_URL:-http://localhost:8082}"
 
+echo "Starting Eureka..."
 java -jar /app/eureka-service.jar &
 sleep 12
 
+echo "Starting backend services..."
 java -jar /app/ms-usuarios.jar &
 java -jar /app/ms-reportes.jar &
 java -jar /app/ms-geolocalizacion.jar &
 java -jar /app/ms-alertas.jar &
 sleep 18
 
+echo "Starting API Gateway..."
 exec java -jar /app/api-gateway.jar
