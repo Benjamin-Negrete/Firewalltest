@@ -4,13 +4,13 @@ FROM maven:3.9-eclipse-temurin-21 AS builder
 WORKDIR /app
 
 # Copy pom files
-COPY "proyecto firewall/pom.xml" ./pom.xml
-COPY "proyecto firewall/api-gateway" ./api-gateway
-COPY "proyecto firewall/eureka-service" ./eureka-service
-COPY "proyecto firewall/usuarios" ./usuarios
-COPY "proyecto firewall/alertas" ./alertas
-COPY "proyecto firewall/reportes" ./reportes
-COPY "proyecto firewall/geolocalizacion" ./geolocalizacion
+COPY "proyecto firewall"/pom.xml ./pom.xml
+COPY "proyecto firewall"/api-gateway ./api-gateway
+COPY "proyecto firewall"/eureka-service ./eureka-service
+COPY "proyecto firewall"/usuarios ./usuarios
+COPY "proyecto firewall"/alertas ./alertas
+COPY "proyecto firewall"/reportes ./reportes
+COPY "proyecto firewall"/geolocalizacion ./geolocalizacion
 
 # Build
 RUN mvn clean install -DskipTests -pl api-gateway -am
