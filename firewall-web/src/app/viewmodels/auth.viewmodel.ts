@@ -105,7 +105,7 @@ export class AuthViewModel {
       return body;
     }
     if (err.status === 0) {
-      return 'Sin conexión al servidor. Verifique que Docker y el API Gateway (:8080) estén activos.';
+      return 'Sin conexión al servidor. Verifique que el backend de Railway esté activo y que la URL del API sea correcta.';
     }
     if (err.status === 404) {
       return 'Servicio no encontrado. Reconstruya ms-usuarios: docker compose up -d --build ms-usuarios api-gateway';

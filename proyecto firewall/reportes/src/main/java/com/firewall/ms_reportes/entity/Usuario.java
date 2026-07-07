@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "Usuario")
+@Table(name = "reporte_usuario")
 @Data // Esto crea automáticamente Getters y Setters gracias a Lombok
 public class Usuario {
 
